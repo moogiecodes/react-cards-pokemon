@@ -12,33 +12,18 @@ function useFlip() {
   return [flipped, toggleFlip];
 }
 
-function useAxios(baseUrl, qParameter) {
+function useAxios(baseUrl) {
   const [cards, setCards] = useState([]);
-  const addCard = async () => {
+  const addCard = async (qParameter = "") => {
 
     let response;
-    if (qParameter) {
-      response = await axios.get(`${baseUrl}/${qParameter}`);
-    }
-    else {
-      response = await axios.get(`${baseUrl}`);
-    }
+
+    response = await axios.get(`${baseUrl}/${qParameter}`);
+
     setCards(cards => [...cards, { ...response.data, id: uuid() }]);
   };
 
   return [cards, addCard];
 }
-
-// function useAxios(url) {
-//   const [cards, setCards] = useState([]);
-//   const addCard = async () => {
-//     const response = await axios.get(url)
-//     setCards(cards => [...cards, { ...response.data, id: uuid() }]);
-//   };
-
-//   return [cards, addCard];
-// }
-
-
 
 export { useFlip, useAxios };
